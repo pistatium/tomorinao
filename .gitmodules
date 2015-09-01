@@ -1,0 +1,3 @@
+[submodule "libraries/oauth"]
+	path = libraries/oauth
+	url = https://github.com/mikeknapp/AppEngine-OAuth-Library
