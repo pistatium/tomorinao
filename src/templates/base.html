@@ -8,10 +8,20 @@
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="/static/main.css" rel='stylesheet'>
-
-{% include "includes/navigation.html" %}
-{% block contents %}
-
-{% endblock %}
-
-{% include "includes/footer.html" %}
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        {% include "includes/navigation.html" %}
+    </header>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">6 (8 tablet)</div>
+                <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet">4 (6 tablet)</div>
+            </div>
+            {% block contents %}{% endblock %}
+        </div>
+    </main>
+    <footer class="mdl-mega-footer">
+        {% include "includes/footer.html" %}
+    </footer>
+</div>
