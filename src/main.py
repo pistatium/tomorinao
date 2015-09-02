@@ -38,7 +38,7 @@ def twitter_callback():
     user_info = twitter_client.get_user_info(auth_token, auth_verifier=auth_verifier)
     user = User.load(user_info)
     user.put()
-    login_user(user.key.id())
+    login_user(user)
     return redirect(url_for("index"))
 
 
