@@ -11,9 +11,13 @@
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <div class="mdl-layout-spacer"></div>
-            <a href="{{ url_for('twitter_login') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Twitter Login
-            </a>
+            {% if user.is_authenticated() %}
+                {{user.name}}
+            {% else %}
+                <a href="{{ url_for('twitter_login') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Twitter Login
+                </a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
