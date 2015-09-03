@@ -20,6 +20,14 @@
             {% endif %}
         </div>
     </div>
+
+    <div class="mdl-card mdl-shadow--2dp match">
+        <div class="list-group-item">
+            {% for i in range(10) %}
+                {% include "includes/tweet.html" %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 {% block sidebar %}
