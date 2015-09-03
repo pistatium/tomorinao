@@ -3,7 +3,8 @@
 from google.appengine.ext import ndb
 from flask.ext.login import UserMixin
 
-class User(ndb.Model, UserMixin):
+
+class LoginUser(ndb.Model, UserMixin):
     screen_name = ndb.StringProperty()
     display_name = ndb.StringProperty()
     profile_image_url = ndb.StringProperty()

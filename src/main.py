@@ -5,7 +5,7 @@ from flask.ext.login import LoginManager, login_user, current_user
 
 from oauth import oauth
 
-from models.user import User
+from models.login_user import LoginUser
 from setting import *
 
 
@@ -21,7 +21,7 @@ twitter_client = oauth.TwitterClient(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL
 
 @login_manager.user_loader
 def load_user(unique_id):
-        return User.get_by_id(unique_id)
+        return LoginUser.get_by_id(unique_id)
 
 @app.route('/')
 def index(): 
@@ -36,7 +36,7 @@ def twitter_callback():
     auth_token = request.args.get("oauth_token", '')
     auth_verifier = request.args.get("oauth_verifier", '')
     user_info = twitter_client.get_user_info(auth_token, auth_verifier=auth_verifier)
-    user = User.load(user_info)
+    user = LoginUser.load(user_info)
     user.put()
     login_user(user)
     return redirect(url_for("index"))
