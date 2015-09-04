@@ -1,3 +1,11 @@
+body {
+    background: url('/static/images/background.jpg');
+
+}
+footer {
+    color: #fff;
+    font-size: 12px;
+}
 .match {
     width: 100%;
 }
