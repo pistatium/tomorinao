@@ -16,5 +16,5 @@ class Twitter():
         if since_id:
             params["since_id"] = since_id
         if max_id:
-            params["max_id"] = since_id
+            params["max_id"] = max_id
         return self.client.make_request(url, self.token, self.secret, params, protected=True)

@@ -49,7 +49,7 @@ def twitter_callback():
 @login_required
 def api_timeline():
     since_id = request.args.get("since_id", '')
-    since_id = request.args.get("max_id", '')
+    max_id = request.args.get("max_id", '')
     tweets = _get_tweets(twitter_client, current_user, since_id, max_id) 
     resp = make_response(
         '''{{ "tweets":{} }}'''.format(tweets),
