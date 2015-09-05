@@ -1,7 +1,9 @@
-# TomoriNao
+# すべてが友利になる
 TomoriNao is a joke twitter client, changes all username to 友利奈緒(Tomori Nao)
 
-## Deployment(WIP)
+http://tomorinao.kimihiro-n.appspot.com/
+
+## Deployment
 
 ### Require
     * GoogleAppEngine SDK
