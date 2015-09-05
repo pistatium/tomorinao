@@ -1,3 +1,33 @@
+body {
+    background: url('/static/images/background.jpg');
+}
+body a {
+    color: #F44336;
+}
+footer {
+    color: #fff;
+    font-size: 12px;
+}
 .match {
     width: 100%;
+}
+.side_title {
+    background: #FFD740;
+}
+.side_title h2 {
+    font-size: 15px;
+}
+.tweet_user {
+    color: #858A01;
+}
+.tweet {
+    font-size: 90%;
+    color: #003;
+}
+a.tweet_link {
+    color: #888;
+}
+.media-left .tweet_icon {
+    width:60px;
+    max-height:60px;
 }
