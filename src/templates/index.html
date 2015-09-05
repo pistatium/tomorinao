@@ -3,15 +3,7 @@
 {% block contents %}
     <div class="mdl-card mdl-shadow--2dp match">
         {% if user.is_authenticated() %}
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                  ツイートを更新する
-            </button>
-            <div id="p2" class="match mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-            <div class="match">
-                {% for i in range(10) %}
-                    {% include "includes/tweet.html" %}
-                {% endfor %}
-            </div>
+            {% include "includes/timeline.html" %}
         {% else %}
             <div class="mdl-card__title">
                 <h1>すべてが友利になる</h1>
