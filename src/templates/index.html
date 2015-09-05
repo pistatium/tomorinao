@@ -3,20 +3,27 @@
 {% block contents %}
     <div class="mdl-card mdl-shadow--2dp match">
         {% if user.is_authenticated() %}
-            <div class="mdl-card mdl-shadow--2dp match">
-                <div class="list-group-item">
-                    {% for i in range(10) %}
-                        {% include "includes/tweet.html" %}
-                    {% endfor %}
-                </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                  ツイートを更新する
+            </button>
+            <div id="p2" class="match mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+            <div class="match">
+                {% for i in range(10) %}
+                    {% include "includes/tweet.html" %}
+                {% endfor %}
             </div>
         {% else %}
             <div class="mdl-card__title">
                 <h1>すべてが友利になる</h1>
             </div>
             <div class="mdl-card__supporting-text">
-                「すべてが友利になる」を利用するにはTwitterでログインしてください。
-                <br>なお、このアプリが勝手に書き込みを行うことはありません。
+                <p>タイムラインがすべて友利奈緒になるツイッタークライアントです。</p>
+
+
+                <p>
+                    「すべてが友利になる」を利用するにはTwitterでログインしてください。
+                    <br>なお、このアプリが勝手に書き込みを行うことはありません。
+                </p>
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <div class="mdl-layout-spacer"></div>
@@ -31,15 +38,15 @@
 
 {% block sidebar %}
     <div class="mdl-cell mdl-card mdl-shadow--2dp match">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">シェア</h2>
+        <div class="side_title mdl-card__title">
+            <h2 class="mdl-card__title-text">シェアする</h2>
         </div>
         <div class="mdl-card__actions mdl-card--border">
             {% include "includes/social_buttons.html" %}
         </div>
     </div>
     <div class="mdl-cell mdl-card mdl-shadow--2dp match">
-        <div class="mdl-card__title">
+        <div class="side_title mdl-card__title">
             <h2 class="mdl-card__title-text">Charlotte</h2>
         </div>
         <div class="mdl-card__actions mdl-card--border">
