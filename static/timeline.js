@@ -7,7 +7,7 @@ $(function() {
 
     var state = {
         is_loading: false,
-tweets: []
+        tweets: []
     }
 
     var main = function() {
@@ -27,21 +27,21 @@ tweets: []
         fetch(max_id);
     };
     var stateChanged = function() {
+        build();
         if (state.is_loading) {
             loading_bar.show();
         } else {
             loading_bar.hide();
         }
-        build();
     };
 
     var init = function() {
-        state.is_loading = true;
         state.tweets = [];
         stateChanged();
     };
 
     var fetch = function(max_id) { 
+        state.is_loading = true;
         $.getJSON(API_URL, {max_id: max_id}, callback);
     }
 
