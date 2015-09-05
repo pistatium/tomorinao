@@ -14,7 +14,6 @@ from setting import *
 
 app = Flask(__name__)
 app.secret_key = FLASK_SECRET_KEY
-app.debug = True
 login_manager = LoginManager(app)
 logger = logging.getLogger(__name__)
 
