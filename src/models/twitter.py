@@ -10,9 +10,11 @@ class Twitter():
         self.token = token
         self.secret = secret
 
-    def get_timeline(self, since_id = None):
+    def get_timeline(self, since_id = None, max_id = None):
         url = "{}statuses/home_timeline.json".format(self.API_HOST)
         params = { "count": self.LIMIT }
         if since_id:
             params["since_id"] = since_id
+        if max_id:
+            params["max_id"] = since_id
         return self.client.make_request(url, self.token, self.secret, params, protected=True)

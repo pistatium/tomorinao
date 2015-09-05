@@ -48,20 +48,22 @@ def twitter_callback():
 @app.route('/api/timeline')
 @login_required
 def api_timeline():
-    tweets = _get_tweets(twitter_client, current_user) 
+    since_id = request.args.get("since_id", '')
+    since_id = request.args.get("max_id", '')
+    tweets = _get_tweets(twitter_client, current_user, since_id, max_id) 
     resp = make_response(
         '''{{ "tweets":{} }}'''.format(tweets),
     ) 
     resp.headers["Content-type"] = "application/json";
     return resp
 
-def _get_tweets(twitter_client, current_user):
-    key = "tweets_{}".format(current_user.token)
+def _get_tweets(twitter_client, current_user, since_id, max_id):
+    key = "tweets_{}_{}_{}".format(current_user.token, since_id, max_id)
     value = memcache.get(key)
     if value:
         return value
     tw = Twitter(twitter_client, current_user.token, current_user.secret)
-    data = tw.get_timeline()
+    data = tw.get_timeline(since_id, max_id)
     if data.status_code != 200:
         logger.error(data.status_code)
         return {}
