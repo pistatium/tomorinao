@@ -57,6 +57,7 @@ def api_timeline():
     resp.headers["Content-type"] = "application/json";
     return resp
 
+
 def _get_tweets(twitter_client, current_user, since_id, max_id):
     key = "tweets_{}_{}_{}".format(current_user.token, since_id, max_id)
     value = memcache.get(key)
