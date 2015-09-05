@@ -1,11 +1,14 @@
 # coding: utf-8
 
-from flask import Flask, request, render_template, redirect, url_for
-from flask.ext.login import LoginManager, login_user, current_user
+from flask import Flask, request, make_response, render_template, redirect, url_for
+from flask.ext.login import LoginManager, login_user, current_user, login_required
+from google.appengine.api import memcache
 
 from oauth import oauth
+import logging
 
 from models.login_user import LoginUser
+from models.twitter import Twitter
 from setting import *
 
 
@@ -13,6 +16,7 @@ app = Flask(__name__)
 app.secret_key = FLASK_SECRET_KEY
 app.debug = True
 login_manager = LoginManager(app)
+logger = logging.getLogger(__name__)
 
 consumer_key = "LKlkj83kaio2fjiudjd9...etc"
 consumer_secret = "58kdujslkfojkjsjsdk...etc"
@@ -41,4 +45,27 @@ def twitter_callback():
     login_user(user)
     return redirect(url_for("index"))
 
+@app.route('/api/timeline')
+@login_required
+def api_timeline():
+    tweets = _get_tweets(twitter_client, current_user) 
+    resp = make_response(
+        '''{{ "tweets":{} }}'''.format(tweets),
+    ) 
+    resp.headers["Content-type"] = "application/json";
+    return resp
+
+def _get_tweets(twitter_client, current_user):
+    key = "tweets_{}".format(current_user.token)
+    value = memcache.get(key)
+    if value:
+        return value
+    tw = Twitter(twitter_client, current_user.token, current_user.secret)
+    data = tw.get_timeline()
+    if data.status_code != 200:
+        logger.error(data.status_code)
+        return {}
+    value = data.content
+    memcache.set(key, value, time=30) 
+    return value
 
