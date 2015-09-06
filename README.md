@@ -11,6 +11,8 @@ http://tomorinao.kimihiro-n.appspot.com/
 ```
 git submodule init
 pip install -r requirements.txt -t libraries
-dev_appserver.py .
-open localhost:8080
+cp src/setting.py.orig src/setting.py
+#Edit setting.py
+#Edit app.yaml
+appcfg.py update .
 ```
