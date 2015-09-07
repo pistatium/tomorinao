@@ -18,3 +18,17 @@ class Twitter():
         if max_id:
             params["max_id"] = max_id
         return self.client.make_request(url, self.token, self.secret, params, protected=True)
+
+    def get_search(self, keyword, since_id = None, max_id = None):
+        url = "{}search/tweets.json".format(self.API_HOST)
+        params = { 
+                "q": keyword,
+                "count": self.LIMIT,
+                "lang": "ja",
+        }
+        if since_id:
+            params["since_id"] = since_id
+        if max_id:
+            params["max_id"] = max_id
+        return self.client.make_request(url, self.token, self.secret, params, protected=True)
+

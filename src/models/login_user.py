@@ -22,5 +22,10 @@ class LoginUser(ndb.Model, UserMixin):
             secret=user_info["secret"]
         )
 
+    @classmethod
+    def get_mine(cls):
+        return cls.get_by_id("twitter:1015028419")  # kimihiro_n
+
     def get_id(self):
         return self.key.id()
+

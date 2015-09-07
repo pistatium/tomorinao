@@ -1,5 +1,4 @@
 $(function() {
-    var API_URL = "/api/timeline";
     var reload_button = $(".reload_button");
     var more_button = $(".more_button");
     var loading_bar = $(".loading_bar");
@@ -28,10 +27,16 @@ $(function() {
     };
     var stateChanged = function() {
         build();
-        if (state.is_loading) {
-            loading_bar.show();
+        console.log(state.tweets);
+        if (state.tweets.length > 0) {
+            more_button.show();
         } else {
-            loading_bar.hide();
+            more_button.hide();
+        }
+        if (state.is_loading) {
+            loading_bar.addClass("mdl-progress__indeterminate");
+        } else {
+            loading_bar.removeClass("mdl-progress__indeterminate");
         }
     };
 
@@ -42,6 +47,7 @@ $(function() {
 
     var fetch = function(max_id) { 
         state.is_loading = true;
+        stateChanged();
         $.getJSON(API_URL, {max_id: max_id}, callback);
     }
 
@@ -63,6 +69,9 @@ $(function() {
     var buildTweet = function(tweet) {
         var tweet_id = tweet.id_str;
         var tweet_body = tomorinize(tweet.text);
+        if (tweet_body.lastIndexOf("RT", 0) == 0) {
+            return "";
+        }
         var screen_name = tweet.user.screen_name; 
         var profile_icon = tweet.user.profile_image_url;
         var link = "https://twitter.com/" + screen_name + "/status/" + tweet_id;

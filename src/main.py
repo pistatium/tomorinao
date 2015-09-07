@@ -1,11 +1,13 @@
 # coding: utf-8
 
+import json
+import logging
+
 from flask import Flask, request, make_response, render_template, redirect, url_for
 from flask.ext.login import LoginManager, login_user, current_user, login_required
 from google.appengine.api import memcache
 
 from oauth import oauth
-import logging
 
 from models.login_user import LoginUser
 from models.twitter import Twitter
@@ -56,6 +58,17 @@ def api_timeline():
     resp.headers["Content-type"] = "application/json";
     return resp
 
+@app.route('/api/public')
+def api_public():
+    since_id = request.args.get("since_id", '')
+    max_id = request.args.get("max_id", '')
+    tweets = _get_public(twitter_client, since_id, max_id) 
+    resp = make_response(
+        tweets.replace("statuses", "tweets"),
+    ) 
+    resp.headers["Content-type"] = "application/json";
+    return resp
+
 
 def _get_tweets(twitter_client, current_user, since_id, max_id):
     key = "tweets_{}_{}_{}".format(current_user.token, since_id, max_id)
@@ -71,3 +84,17 @@ def _get_tweets(twitter_client, current_user, since_id, max_id):
     memcache.set(key, value, time=30) 
     return value
 
+def _get_public(twitter_client, since_id, max_id):
+    mine = LoginUser.get_mine()
+    key = "public_{}_{}_{}".format(mine.token, since_id, max_id)
+    value = memcache.get(key)
+    if value:
+        return value
+    tw = Twitter(twitter_client, mine.token, mine.secret)
+    data = tw.get_search("友利奈緒 OR シャーロット OR Charlotte -http", since_id, max_id)
+    if data.status_code != 200:
+        logger.error(data.status_code)
+        return {}
+    value = data.content
+    memcache.set(key, value, time=30) 
+    return value
