@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block contents %}
-    <div class="mdl-cell mdl-card mdl-shadow--2dp match">
-        {% if user.is_authenticated() %}
-        {% else %}
+    {% if not user.is_authenticated() %}
+        <div class="mdl-cell mdl-card mdl-shadow--2dp match">
             <div class="mdl-card__title">
                 <h1>すべてが友利になる</h1>
             </div>
@@ -22,9 +21,8 @@
                     Twitterでログインする
                 </a>
             </div>
-
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
     <div class="mdl-cell mdl-card mdl-shadow--2dp match">
         <div class="match mdl-shadow--2dp">
